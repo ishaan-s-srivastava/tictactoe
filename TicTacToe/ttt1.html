@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tic Tac Toe</title>
+    <style>
+        .square {
+            display: flex;
+            border: 2px;
+            border-color: black;
+            border-style: solid;
+            text-align: center;
+            font-size: 60px;
+            font-family: Arial, Helvetica, sans-serif;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .square:hover {
+            background-color: antiquewhite;
+        }
+
+
+        .squares {
+            display: grid;
+            grid-template-columns: repeat(3, 100px);
+            grid-template-rows: repeat(3, 100px);
+            gap: 5px;
+
+        }
+    </style>
+</head>
+<body>
+    <div class="squares">
+        <div class="square">X</div>
+        <div class="square"></div>
+        <div class="square"></div>
+        <div class="square">O</div>
+        <div class="square"></div>
+        <div class="square"></div>
+        <div class="square">X</div>
+        <div class="square"></div>
+        <div class="square"></div>
+    </div>
+    
+</body>
+</html>

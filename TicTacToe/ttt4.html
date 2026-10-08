@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tic Tac Toe</title>
+    <style>
+        .square {
+            display: flex;
+            flex-direction: row;
+            border: 2px;
+            border-color: black;
+            border-style: solid;
+            text-align: center;
+            font-size: 60px;
+            font-family: Arial, Helvetica, sans-serif;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .square:hover {
+            background-color: antiquewhite;
+        }
+
+
+        .squares {
+            display: grid;
+            grid-template-columns: repeat(3, 100px);
+            grid-template-rows: repeat(3, 100px);
+            gap: 5px;
+            align-self: center;
+            /* margin-top: 40px; */
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .section {
+            width: 400px;
+            height: 40px;
+            border: 2px;
+            border-style: solid;
+            border-color: black;
+            margin-bottom: 20px;
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+            font-size: 25px;
+            text-align: center;
+        }
+
+        #winner {
+            margin-top: 20px;
+        }
+
+        #start {
+            width: 100px;
+            /* align-self: center; */
+            font-size: 20px;
+            margin-left: 105px;
+            margin-top: 10px;
+        }
+
+
+    </style>
+</head>
+<body>
+    <h1>Tic Tac Go!</h1>
+    <div class="section" id="turn">
+        <h2></h2>
+    </div>
+    <div class="squares">
+        <script>
+            //choose the starting player (50/50 chance)
+            startingPlayerKey = Math.random();
+            currPlayer = '';
+            if (startingPlayerKey < 0.5) {
+                currPlayer = 'X';
+            }
+            else {
+                currPlayer = 'O';
+            }
+
+            //create moves array
+            const turnBar = document.getElementById("turn");
+            turnBar.textContent = "Player " + currPlayer + "'s " + "turn";
+            function boxClicked(event, boxNum, currPlayer) {
+                event.target.textContent = currPlayer;
+                moves[boxNum] = currPlayer;
+            }
+            const NUM_SQUARES = 9;
+            for (i=0; i<NUM_SQUARES; i++) {
+                id = "sq"+i;
+                document.write( "<div class='square' id='" + id + "'></div>" );
+            }
+            gameOver = false;
+            for (let i = 0; i < NUM_SQUARES; i++) {
+                const box = document.getElementById("sq" + i);
+                box.addEventListener("click", function(event) {
+                    //check to see if box has already been filled
+                    if (box.textContent == '' && !gameOver) {
+                        boxClicked(event, i, currPlayer);
+                        //alternate between X and O
+                       
+                        winConditions[0] = moves[0] +  moves[1] + moves[2];
+                        winConditions[1] = moves[3] +  moves[4] + moves[5];
+                        winConditions[2] = moves[6] +  moves[7] + moves[8];
+                        winConditions[3] = moves[0] +  moves[3] + moves[6];
+                        winConditions[4] = moves[1] +  moves[4] + moves[7];
+                        winConditions[5] = moves[2] +  moves[5] + moves[8];
+                        winConditions[6] = moves[0] +  moves[4] + moves[8];
+                        winConditions[7] = moves[2] +  moves[4] + moves[6];
+                        winConditions.forEach(function(winCondition, i) {
+                            if (winCondition == "OOO" || winCondition == "XXX") {
+                                turnBar.textContent = "Player " + currPlayer + " wins!!";
+                                gameOver = true;
+                            }
+                        });
+                        if (!moves.includes('-') && !gameOver) {
+                            turnBar.textContent = "It's a stalemate!";
+                            gameOver = true;
+                        }
+                        if (gameOver) {
+                            return;
+                        }
+                        if (currPlayer == 'X') {
+                            currPlayer = 'O';
+                        }
+                        else {
+                            currPlayer = 'X';
+                        }
+                        turnBar.textContent = "Player " + currPlayer + "'s " + "turn";
+                    }
+                });
+                
+            }
+            const squares = document.querySelectorAll(".square");
+            const moves = [];
+            squares.forEach(function(square, i) {
+                if (square.innerText == '') {
+                    moves[i] = '-';
+                }
+                else {
+                    moves[i] = square.innerText;
+                }
+            });
+
+            const winConditions = [];
+
+            winConditions[0] = moves[0] +  moves[1] + moves[2];
+            winConditions[1] = moves[3] +  moves[4] + moves[5];
+            winConditions[2] = moves[6] +  moves[7] + moves[8];
+            winConditions[3] = moves[0] +  moves[3] + moves[6];
+            winConditions[4] = moves[1] +  moves[4] + moves[7];
+            winConditions[5] = moves[2] +  moves[5] + moves[8];
+            winConditions[6] = moves[0] +  moves[4] + moves[8];
+            winConditions[7] = moves[2] +  moves[4] + moves[6];
+            //create the start button
+
+            document.write( "<button id='start'>Start Game</button>" );
+            const startButton = document.getElementById("start");
+            //when the start button is clicked:
+            startButton.addEventListener("click", function() {
+                //reload the page to clear the board
+                location.reload();
+                //reselect the starting player randomly
+                playerKey = Math.random();
+                if (playerKey < 0.5) {
+                currPlayer = 'X';
+                }
+                else {
+                    currPlayer = 'O';
+                }
+            });
+            
+        </script>
+    </div>
+    <div class="section" id="winner">
+        <h2></h2>
+    </div>
+    
+</body>
+</html>
